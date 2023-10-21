@@ -1,0 +1,24 @@
+{
+  "name": "my-recipes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShayaG94/my-recipes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShayaG94/my-recipes/issues"
+  },
+  "homepage": "https://github.com/ShayaG94/my-recipes#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.6.3"
+  }
+}
