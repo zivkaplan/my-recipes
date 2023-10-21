@@ -6,14 +6,16 @@
   "scripts": {
     "client-install": "npm i --prefix client",
     "server-install": "npm i --prefix server",
-    "server": "nodemon app.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/app.js",
+    "client-dev": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client-dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^8.2.2",
     "nodemon": "^3.0.1"
   }
 }
