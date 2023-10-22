@@ -5,4 +5,4 @@ const LineSchema = new Schema({
     body: String,
 });
 
-module.exports.LineSchema = mongoose.model("Line", LineSchema);
+module.exports = mongoose.model("Line", LineSchema);
