@@ -7,11 +7,11 @@ npm run server-install
 ```
 
 ## Run
-```bash 
-npm run server
-npm run client
-```
-or simply
 ```bash
+# Run both server and client
 npm run dev
+
+# Run specifc
+npm run server-dev
+npm run client-dev
 ```
