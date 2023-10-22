@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client-install": "npm i --prefix client",
-    "server-install": "npm i --prefix server",
-    "client": "npm start --prefix client",
-    "server": "nodemon server/app.js",
-    "client-dev": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client-dev\"",
+    "client-install": "npm --prefix client install",
+    "server-install": "npm --prefix server install",
+    "client-dev": "npm --prefix client run dev",
+    "server-dev": "nodemon server/app.js",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client-dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
