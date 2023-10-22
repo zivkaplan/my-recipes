@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Recipe = require("./models/recipe");
 
 mongoose.set("strictQuery", true);
 mongoose.connect("mongodb://localhost:27017/my_recipes");
@@ -19,29 +20,34 @@ app.get("/", (req, res) => {
     res.send("Welcome my_recipes by K&G productions!");
 });
 
-app.get("/myrecipes", async (req, res) => {
-    res.send("<h1>My Recipes</h1>");
+app.get("/recipes", async (req, res) => {
+    const recipes = await Recipe.find();
+    res.send(recipes);
 });
 
-app.get("/myrecipes/new", (req, res) => {
+app.get("/recipes/new", (req, res) => {
     res.send("New recipe form");
 });
 
-app.post("/myrecipes", async (req, res) => {
-    res.send(`Submitted new recipe: ${req.body}`);
+app.post("/recipes", async (req, res) => {
+    const recipe = new Recipe(req.body.recipe);
+    // await recipe.save();
+    // res.send("Successfully added a recipe");
+    console.log(req.body);
+    res.send(req.body);
 });
 
-app.get("/myrecipes/:id", async (req, res) => {
+app.get("/recipes/:id", async (req, res) => {
     const { id } = req.params;
     res.send(`Show one recipe with this ID: ${id}`);
 });
 
-app.put("/myrecipes/:id", async (req, res) => {
+app.put("/recipes/:id", async (req, res) => {
     const { id } = req.params;
     res.send(`Editing a recipe with ID: ${id}`);
 });
 
-app.delete("/myrecipes/:id", async (req, res) => {
+app.delete("/recipes/:id", async (req, res) => {
     const { id } = req.params;
     res.send(`Deleting a recipe with ID: ${id}`);
 });
