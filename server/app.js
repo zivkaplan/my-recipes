@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/recipes", async (req, res) => {
-    const recipes = await Recipe.find();
+    const recipes = await Recipe.find().populate("content");
     res.send(recipes);
 });
 
@@ -39,7 +39,8 @@ app.post("/recipes", async (req, res) => {
 
 app.get("/recipes/:id", async (req, res) => {
     const { id } = req.params;
-    res.send(`Show one recipe with this ID: ${id}`);
+    const recipe = await Recipe.findById(id);
+    res.send(`Show one recipe:\n${recipe}`);
 });
 
 app.put("/recipes/:id", async (req, res) => {
