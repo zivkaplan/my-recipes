@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/recipes", async (req, res) => {
-    const recipes = await Recipe.find().populate("content");
+    const recipes = await Recipe.find();
     res.send(recipes);
 });
 
@@ -39,8 +39,8 @@ app.post("/recipes", async (req, res) => {
 
 app.get("/recipes/:id", async (req, res) => {
     const { id } = req.params;
-    const recipe = await Recipe.findById(id);
-    res.send(`Show one recipe:\n${recipe}`);
+    const recipe = await Recipe.findById(id).populate("content");
+    res.send(recipe);
 });
 
 app.put("/recipes/:id", async (req, res) => {
@@ -50,7 +50,8 @@ app.put("/recipes/:id", async (req, res) => {
 
 app.delete("/recipes/:id", async (req, res) => {
     const { id } = req.params;
-    res.send(`Deleting a recipe with ID: ${id}`);
+    const deletedRecipe = await Recipe.findByIdAndDelete(id);
+    res.send(`Deleting a recipe: ${deletedRecipe.title}`);
 });
 
 app.listen(3300, () => {
