@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 
 app.get("/recipes", async (req, res) => {
     const recipes = await Recipe.find();
-    res.send(recipes);
+    res.json(recipes);
 });
 
 app.get("/recipes/new", (req, res) => {
@@ -45,13 +45,13 @@ app.post("/recipes", async (req, res) => {
     // await newLine.save();
     // });
     // await recipe.save();
-    res.send(recipe);
+    res.json(recipe);
 });
 
 app.get("/recipes/:id", async (req, res) => {
     const { id } = req.params;
     const recipe = await Recipe.findById(id).populate("content");
-    res.send(recipe);
+    res.json(recipe);
 });
 
 app.put("/recipes/:id", async (req, res) => {
