@@ -31,12 +31,13 @@ app.get("/recipes/new", (req, res) => {
 });
 
 app.post("/recipes", async (req, res) => {
-    const recipe = new Recipe(req.body.recipe);
-    recipe.content = req.body.recipe.content.map(async (l) => {
-        const line = new Line({ l });
-        await line.save();
-    });
-    await recipe.save();
+    console.log(req.body.recipe);
+    // const recipe = new Recipe(req.body.recipe);
+    // recipe.content = req.body.recipe.content.map(async (l) => {
+    //     const line = new Line({ l });
+    //     await line.save();
+    // });
+    // await recipe.save();
     // const { content } = req.body.recipe;
     // content.forEach(async (line) => {
     // console.log(line);
@@ -45,7 +46,7 @@ app.post("/recipes", async (req, res) => {
     // await newLine.save();
     // });
     // await recipe.save();
-    res.json(recipe);
+    res.json(req.body.recipe);
 });
 
 app.get("/recipes/:id", async (req, res) => {
