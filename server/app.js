@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Recipe = require("./models/recipe");
+const { Line } = require("./models/line");
 
 mongoose.set("strictQuery", true);
 mongoose.connect("mongodb://localhost:27017/my_recipes");
@@ -30,8 +31,15 @@ app.get("/recipes/new", (req, res) => {
 });
 
 app.post("/recipes", async (req, res) => {
-    console.log(req.body.recipe);
-    res.json(req.body.recipe);
+    const recipe = new Recipe(req.body.recipe);
+    for (let data of req.body.recipe.content) {
+        const line = new Line(data);
+        recipe.content.push(line);
+        await line.save();
+        console.log(line);
+    }
+    await recipe.save();
+    res.json(recipe);
 });
 
 app.get("/recipes/:id", async (req, res) => {
