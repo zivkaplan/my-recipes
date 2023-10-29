@@ -32,11 +32,10 @@ app.get("/recipes/new", (req, res) => {
 
 app.post("/recipes", async (req, res) => {
     const recipe = new Recipe(req.body.recipe);
-    for (let data of req.body.recipe.content) {
+    for (let data of req.body.content) {
         const line = new Line(data);
-        recipe.content.push(line);
         await line.save();
-        console.log(line);
+        recipe.content.push(line);
     }
     await recipe.save();
     res.json(recipe);
@@ -50,13 +49,18 @@ app.get("/recipes/:id", async (req, res) => {
 
 app.put("/recipes/:id", async (req, res) => {
     const { id } = req.params;
-    res.send(`Editing a recipe with ID: ${id}`);
+    const recipe = await Recipe.findByIdAndUpdate(id, { ...req.body.recipe });
+    for (let data of req.body.content) {
+        await Line.findByIdAndUpdate(data.id, data);
+    }
+    await recipe.populate("content");
+    res.json(recipe);
 });
 
 app.delete("/recipes/:id", async (req, res) => {
     const { id } = req.params;
     const deletedRecipe = await Recipe.findByIdAndDelete(id);
-    res.send(`Deleting a recipe: ${deletedRecipe.title}`);
+    res.send(`Deleted a recipe: ${deletedRecipe.title}`);
 });
 
 app.listen(3300, () => {
